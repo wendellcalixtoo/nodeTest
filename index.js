@@ -3,74 +3,99 @@ const server = express();
 
 server.use(express.json());
 
-//rota localhost:3000/users
-//Route params = /users/1
-const cacos = ['Wendell', 'Erika', 'Ana Alice']
+//para rodar o projeto: yarn dev -nodemon
 
-//rota 01 pega apenas 1 membro por vez
-server.get('/cacos/:index', (req, res) => {
-    const index = req.params.index;
+//elementos da rota Frutas
+const frutas = ['Acerola', 'Abacaxi', 'Laranja']
 
-    return res.json(cacos[index]);
-})
-//rota 01 pega todos os membros
-server.get('/cacos/', (req, res) => {
-    return res.json(cacos)
+//Retorna todo o array de frutas
+server.get('/frutas/', (req,res) => {
+    return res.json(frutas)
 })
 
-//rota 03
-const santana = ['Erika', 'Eri', 'Ivone']
+//Retorna 1 elemento do array de frutas
+//Método GET
+server.get('/frutas/:index', (req, res) =>{
+    const { index } = req.params; 
 
-server.get('/santana/:index', (req, res) => {
-    const index = req.params.index;
-
-    return res.send(`Membro da familia Santana: ${santana[index]}`)
-})
-
-server.get('/santana/', (req,res) => {
-    return res.send(`Todos os membros da familia Santana: ${santana}`)
+    return res.json(frutas[index]);
 })
 
 //crud
-const lista = ['arroz', 'feijao', 'macarrão', 'carne', 'batata']
-
-server.get('/lista/', (req, res) => {
-    return res.send(`Todos os itens da lista: ${lista}`)
-})
-
-server.get('/lista/:index', (req,res) => {
-    const index = req.params.index;
-
-    return res.send(`Um item da lista: ${lista[index]}`)
-})
-
-//metodo post
-server.post('/lista', (req,res) => {
+//Método POST
+server.post('/frutas', (req, res) => {
     const { name } = req.body;
 
-    lista.push(name);
+    frutas.push(name);
 
-    return res.json(lista);
+    return res.json(frutas);
 })
 
-//metodo put
-server.put('/lista/:index', (req,res) => {
+//Método PUT
+server.put('/frutas/:index', (req, res) => {
     const { index } = req.params;
     const { name } = req.body;
 
-    lista[index] = name;
+    frutas[index] = name;
 
-    return res.json(lista);
+    return res.json(frutas);
 })
 
-server.delete('/lista/:index', (req,res) => {
+//Método DELETE
+server.delete('/frutas/:index', (req, res) => {
     const { index } = req.params;
 
-    lista.splice(index, 1);
+    frutas.splice(index, 1);
 
-    return res.json(lista);
+    return res.json(frutas);
 })
 
-//porta 3000 aberta 
-server.listen(3000);
 
+//Rota cores
+//elementos da roda cores
+const cores = ['Azul', 'Vermelho', 'Verde']
+
+//Retorna todo o array de cores
+server.get('/cores/', (req,res) => {
+    return res.json(cores)
+})
+
+//Retorna 1 elemento do array de cores
+//Método GET
+server.get('/cores/:index', (req, res) =>{
+    const { index } = req.params; 
+
+    return res.json(cores[index]);
+})
+
+//crud
+//Método POST
+server.post('/cores', (req, res) => {
+    const { name } = req.body;
+
+    cores.push(name);
+
+    return res.json(cores);
+})
+
+//Método PUT
+server.put('/cores/:index', (req, res) => {
+    const { index } = req.params;
+    const { name } = req.body;
+
+    cores[index] = name;
+
+    return res.json(cores);
+})
+
+//Método DELETE
+server.delete('/cores/:index', (req, res) => {
+    const { index } = req.params;
+
+    cores.splice(index, 1);
+
+    return res.json(cores);
+})
+
+//Projeto rodando na porta 3000
+server.listen(3000)
